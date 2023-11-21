@@ -5,7 +5,7 @@ const app = express();
 const router = require('./routes/index.js');
 
 app.use(express.json());
-app.use('/api/v1', router);
+app.use('/api', router);
 
 app.get('/', function (req, res) {
     res.json({
