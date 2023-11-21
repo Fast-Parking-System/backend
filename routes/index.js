@@ -2,10 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 // autentikasi
-const authController = require('../controllers/user.js');
+const userController = require('../controllers/user.js');
 const validate = require('../middleware/validate.js');
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.get('/whoami', validate, authController.whoami);
+router.post('/register', userController.register);
+router.post('/login', userController.login);
+router.get('/whoami', validate, userController.whoami);
+
+// location
+const locationController = require('../controllers/location.js');
+router.post('/locations', locationController.create);
+router.get('/locations', locationController.list);
+router.get('/locations/:id', locationController.detail);
+
 
 module.exports = router;
