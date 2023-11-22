@@ -17,4 +17,8 @@ router.post('/locations', locationController.create);
 router.get('/locations', locationController.list);
 router.get('/locations/:id', locationController.detail);
 
+// transaksi
+const transactionController = require('../controllers/transaction.js');
+router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
+
 module.exports = router;

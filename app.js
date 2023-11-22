@@ -5,6 +5,7 @@ const app = express();
 const router = require('./routes/index.js');
 
 app.use(express.json());
+app.set('view engine', 'ejs');
 app.use('/api', router);
 
 app.get('/', function (req, res) {
