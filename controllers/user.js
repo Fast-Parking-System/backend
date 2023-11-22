@@ -1,5 +1,6 @@
 const db = require('../database');
 const jwt = require('jsonwebtoken');
+const qr = require('qr-image');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 async function register(req, res, next) {
@@ -39,7 +40,7 @@ async function register(req, res, next) {
 async function login(req, res, next) {
     try {
         const userId = req.body.user_id;
-        const password  = req.body.password;
+        const password = req.body.password;
 
         const [users] = await db.query('SELECT * FROM users WHERE id=?', [parseInt(userId, 10)]);
         if (users.length === 0) {
@@ -83,8 +84,47 @@ function whoami(req, res) {
     });
 }
 
+async function getAttendants(req, res, next) {
+    try {
+        let { search } = req.query;
+
+        let results;
+        if (search) {
+            [results] = await db.query(`
+            SELECT users.id, users.full_name, locations.name AS location
+            FROM users
+            LEFT JOIN locations ON locations.id = users.location_id
+            WHERE NOT users.is_admin AND users.full_name LIKE ?`, [`%${search}%`]);
+        } else {
+            [results] = await db.query(`
+            SELECT users.id, users.full_name, locations.name AS location
+            FROM users
+            LEFT JOIN locations ON locations.id = users.location_id
+            WHERE NOT users.is_admin`);
+        }
+
+        const domain = `${req.protocol}://${req.get('host')}`;
+        results.map(r => {
+            let id = r.id;
+            r.qr_code = qr.imageSync(`${domain}/payments/${id}`, { type: 'png' }).toString('base64');
+            r.id = r.id.toString().padStart(6, '0');
+            return r;
+        });
+
+        res.json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: results
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     register,
     login,
-    whoami
+    whoami,
+    getAttendants
 };

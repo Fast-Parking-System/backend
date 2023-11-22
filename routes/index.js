@@ -8,11 +8,13 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/whoami', validate, userController.whoami);
 
+// attendant
+router.get('/attendants', userController.getAttendants);
+
 // location
 const locationController = require('../controllers/location.js');
 router.post('/locations', locationController.create);
 router.get('/locations', locationController.list);
 router.get('/locations/:id', locationController.detail);
-
 
 module.exports = router;
