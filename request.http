@@ -1,0 +1,41 @@
+### Register
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+    "full_name": "agung",
+    "mobile": "082108210821",
+    "location_id": 1,
+    "gender": "Perempuan",
+    "password": "agung123",
+    "is_admin": false
+}
+
+### Login
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+    "user_id": "000004",
+    "password": "halimah123"
+}
+
+### Authenticated
+GET http://localhost:3000/api/whoami
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwNCIsImZ1bGxfbmFtZSI6ImhhbGltYWgiLCJtb2JpbGUiOiIwODIxMDgyMTA4MjEiLCJwYXNzd29yZCI6ImhhbGltYWgxMjMiLCJsb2NhdGlvbl9pZCI6MSwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMDU2MTEwM30.AVeNOZGSwsTYqMk4AR3o_xCJ4IY0gk1d1OYgVEoGKO4
+
+
+### create locations
+POST http://localhost:3000/locations
+Content-Type: application/json
+
+{
+    "name": "cetroo",
+    "tags": ["meneer","batam center","poltek","global","mcd"]
+}
+
+### show Locations
+GET http://localhost:3000/locations?search=meneer
+
+### show attendants
+GET http://localhost:3000/api/attendants?search=nau
