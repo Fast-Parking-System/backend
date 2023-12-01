@@ -19,16 +19,7 @@ async function createTransaction(req, res, next) {
 
         const results = await db.query('INSERT INTO transactions (user_id, amount) VALUES (?,?)', [userId, amount]);
 
-        res.json({
-            status: true,
-            message: 'OK',
-            error: null,
-            data: { transaction_id: results[0].insertId }
-        });
-
-        const [users] = await db.query('SElECT users.id, users.full_name, locations.name location FROM users JOIN locations ON locations.id = users.location_id WHERE users.id = ?', [userId]);
-
-        res.render('checkout', { user_id: users[0].id, attendant_name: users[0].full_name, location: users[0].location, nominal: 2000 });
+        res.render('success');
     } catch (err) {
         next(err);
     }
