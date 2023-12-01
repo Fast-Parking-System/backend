@@ -20,5 +20,7 @@ router.get('/locations/:id', locationController.detail);
 // transaksi
 const transactionController = require('../controllers/transaction.js');
 router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
+router.post('/attendants/:user_id/pay', transactionController.createTransaction);
+router.get('/attendants/:user_id/analytics', transactionController.analytics);
 
 module.exports = router;

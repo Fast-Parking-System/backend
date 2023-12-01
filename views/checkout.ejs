@@ -4,30 +4,30 @@
 
 <body>
     <form action="/api/attendants/<%= user_id %>/pay" method="post">
+        <!-- Store Name -->
+        <h1>Fast Parking System</h1>
+
+        <!-- Attendant -->
+        <label for="attendant_name">Attendant:</label>
+        <input type="text" id="attendant_name" name="attendant_name" value="<%= attendant_name %>" readonly>
+
+        <br><br>
+
+        <!-- Location -->
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="<%= location %>" readonly>
+
+        <br><br>
+
+        <!-- Nominal -->
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" value="<%= amount %>" readonly>
+
+        <br><br>
+
+        <!-- Submit -->
         <div>
-            <!-- Store Name -->
-            <h1>Fast Parking System</h1>
-
-            <!-- Attendant -->
-            <label for="attendant_name">Attendant:</label>
-            <input type="text" id="attendant_name" name="attendant_name" value="<%= attendant_name %>" disabled>
-
-            <br><br>
-
-            <!-- Location -->
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" value="<%= location %>" disabled>
-
-            <br><br>
-
-            <!-- Nominal -->
-            <label for="nominal">Nominal:</label>
-            <input type="number" id="nominal" name="nominal" value="<%= nominal %>" disabled>
-
-            <br><br>
-
-            <!-- Submit Button -->
-            <button type="submit">Pay</button>
+            <input type="submit" value="Submit">
         </div>
     </form>
 </body>
