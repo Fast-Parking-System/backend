@@ -106,7 +106,7 @@ async function getAttendants(req, res, next) {
         const domain = `${req.protocol}://${req.get('host')}`;
         results.map(r => {
             let id = r.id;
-            r.qr_code = qr.imageSync(`${domain}/payments/${id}`, { type: 'png' }).toString('base64');
+            r.qr_code = qr.imageSync(`${domain}/api/attendants/${id}/pay`, { type: 'png' }).toString('base64');
             r.id = r.id.toString().padStart(6, '0');
             return r;
         });
