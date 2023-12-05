@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 function validate(req, res, next) {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({
@@ -18,7 +18,7 @@ function validate(req, res, next) {
             return res.status(401).json({
                 status: false,
                 message: 'Unauthorized',
-                error: errorMessage,
+                error: err.message,
                 data: null
             });
         }

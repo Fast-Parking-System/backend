@@ -4,12 +4,12 @@ const router = express.Router();
 // autentikasi
 const userController = require('../controllers/user.js');
 const validate = require('../middleware/validate.js');
-router.post('/register', userController.register);
-router.post('/login', userController.login);
-router.get('/whoami', validate, userController.whoami);
+router.post('/register', userController.register); // ok
+router.post('/login', userController.login); // ok
+router.get('/whoami', validate, userController.whoami); // ok
 
 // attendant
-router.get('/attendants', userController.getAttendants);
+router.get('/attendants', validate, userController.getAttendants); // ok
 
 // location
 const locationController = require('../controllers/location.js');

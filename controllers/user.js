@@ -68,7 +68,7 @@ async function login(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { token }
+            data: { token, is_admin: users[0].is_admin }
         });
     } catch (err) {
         next(err);
