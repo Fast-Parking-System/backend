@@ -20,8 +20,8 @@ router.get('/locations/:id', validate, locationController.detail);
 
 // transaksi
 const transactionController = require('../controllers/transaction.js');
-router.get('/attendants/:user_id/pay', validate, transactionController.renderCheckoutPage);
-router.post('/attendants/:user_id/pay', validate, transactionController.createTransaction);
+router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
+router.post('/attendants/:user_id/pay', transactionController.createTransaction);
 router.get('/attendants/:user_id/analytics', validate, transactionController.analytics);
 
 module.exports = router;
