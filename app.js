@@ -7,10 +7,12 @@ const YAML = require('yaml');
 const swaggerDocument = YAML.parse(file);
 const swaggerUi = require('swagger-ui-express');
 const app = express();
+const morgan = require('morgan');
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(morgan('dev'));
 app.set('view engine', 'ejs');
 
 const router = require('./routes/index.js');

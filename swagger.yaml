@@ -114,6 +114,24 @@ paths:
                         $ref: "#/components/schemas/AuthWhoAmIResponse"
       security:
         - bearerAuth: []
+    get:
+      summary: Get Locations
+      responses:
+        "200":
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/GetLocationResponse"
+      security:
+        - bearerAuth: []
 components:
   securitySchemes:
     bearerAuth:
@@ -214,6 +232,17 @@ components:
           type: string
           example: iVBORw0KGgoAAAANSUhEUgAAALkAAAC5CAAAAABRxsGAAAABvUlEQVR42u3cQRLCIAwF0N7/0rp3BH+gVimPlTO08lw0hEA9Hqu2g5ycnJycnJycnJycnPwu8uNze3fHy73BNw+ORk5O3g46fVYT8+6SqdHIyclLozevawaYqW8hJycP5MHFfQw5OfklsSWd38nJyU+SB7+rOasH6J+tLMjJl5cHVacTP11cnSMnX1keb9WMVZz/YIeLnHxlefDcz5StBscgJyf/kIaXJu9+NtHvGM3Pycm3kfdXwYEtXVAP5gbk5ORTda90T3e0+EVOvrW8H0L6kaJ+b7osJycnTx70PjpI4YOOk3a4yMl3kAcVq1LHdLWanHxbefp4p0EnzfxL95KTbytP93XSyvQAayYqkpNvI6+fTezn9qUK9mh+Tk6+gzz9FCTf9Qh10ikRcvKbywPg4Kr6i/k5Ofk28nQ+LhWW0zl/9G0FcvKby9M2s3gOwhQ5Ofn8f6DVi1X1FwTIyckfdUx6Wj89Q9FMAcjJyQfy89pI/7SyICffRp7uBKXxaz4/JycnT/P40u7udVVocvJ7yOu9QSk6OGxFTk4+X+Oqh5C099vVOXLyleVLNHJycnJycnJycnJycvIV2xPrUadYVBZzOQAAAABJRU5ErkJggg==
     CreateLocationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Politeknik Negeri Batam
+        tags:
+          type: array
+          items:
+            type: string
+            example: Polibatam
+    GetLocationResponse:
       type: object
       properties:
         name:

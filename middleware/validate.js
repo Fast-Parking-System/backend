@@ -2,17 +2,18 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 function validate(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
-
-    if (!token) {
+    console.log("req.header")
+    console.log(req.header.authorization)
+    if (!req.headers.authorization) {
         return res.status(401).json({
             status: false,
             message: 'Unauthorized',
-            error: errorMessage,
+            error: null,
             data: null
         });
     }
 
+    const token = req.headers.authorization.split(' ')[1];
     jwt.verify(token, JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(401).json({
