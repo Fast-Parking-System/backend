@@ -76,11 +76,13 @@ async function login(req, res, next) {
 }
 
 function whoami(req, res) {
+    const domain = `${req.protocol}://${req.get('host')}`;
+    const qr_code = qr.imageSync(`${domain}/api/attendants/${req.user.id}/pay`, { type: 'png' }).toString('base64');
     res.json({
         status: true,
         message: 'OK',
         error: null,
-        data: req.user
+        data: { ...req.user, qr_code }
     });
 }
 
