@@ -1,6 +1,6 @@
 const db = require('../database');
 const jwt = require('jsonwebtoken');
-const qr = require('qr-image');
+const QRCode = require('qrcode');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 async function register(req, res, next) {
@@ -75,14 +75,14 @@ async function login(req, res, next) {
     }
 }
 
-function whoami(req, res) {
+async function whoami(req, res) {
     const domain = `${req.protocol}://${req.get('host')}`;
-    const qr_code = qr.imageSync(`${domain}/api/attendants/${req.user.id}/pay`, { type: 'png' }).toString('base64');
+    const qrCode = await generateQrCode(`${domain}/api/attendants/${req.user.id}/pay`);
     res.json({
         status: true,
         message: 'OK',
         error: null,
-        data: { ...req.user, qr_code }
+        data: { ...req.user, qr_code: qrCode }
     });
 }
 
@@ -106,9 +106,10 @@ async function getAttendants(req, res, next) {
         }
 
         const domain = `${req.protocol}://${req.get('host')}`;
+        const qrCode = await generateQrCode(`${domain}/api/attendants/${id}/pay`);
         results.map(r => {
             let id = r.id;
-            r.qr_code = qr.imageSync(`${domain}/api/attendants/${id}/pay`, { type: 'png' }).toString('base64');
+            r.qr_code = qrCode;
             r.id = r.id.toString().padStart(6, '0');
             return r;
         });
@@ -122,6 +123,15 @@ async function getAttendants(req, res, next) {
     } catch (err) {
         next(err);
     }
+}
+
+async function generateQrCode(data) {
+    const url = await QRCode.toDataURL(data, {
+        color: {
+            light: '#0000' // Transparent background
+        }
+    });
+    return url.split(',')[1];
 }
 
 module.exports = {
