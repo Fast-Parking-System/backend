@@ -78,11 +78,14 @@ async function login(req, res, next) {
 async function whoami(req, res) {
     const domain = `${req.protocol}://${req.get('host')}`;
     const qrCode = await generateQrCode(`${domain}/api/attendants/${req.user.id}/pay`);
+
+    const [locations] = await db.query('SELECT * FROM locations WHERE id=?', [req.user.location_id]);
+
     res.json({
         status: true,
         message: 'OK',
         error: null,
-        data: { ...req.user, qr_code: qrCode }
+        data: { ...req.user, qr_code: qrCode, location: locations[0].name }
     });
 }
 
