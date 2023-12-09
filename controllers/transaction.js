@@ -72,7 +72,12 @@ async function analytics(req, res, next) {
             yearly: yearlyResults,
         };
 
-        res.json(analyticsResult);
+        res.json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: analyticsResult
+        });
     } catch (err) {
         next(err);
     }

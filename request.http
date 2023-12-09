@@ -42,3 +42,4 @@ GET http://localhost:3000/api/attendants?search=nau
 
 ### show transactions
 GET http://localhost:3000/api/attendants/1/analytics
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwNCIsImZ1bGxfbmFtZSI6ImhhbGltYWgiLCJtb2JpbGUiOiIwODIxMDgyMTA4MjEiLCJwYXNzd29yZCI6ImhhbGltYWgxMjMiLCJsb2NhdGlvbl9pZCI6MSwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMDU2MTEwM30.AVeNOZGSwsTYqMk4AR3o_xCJ4IY0gk1d1OYgVEoGKO4
