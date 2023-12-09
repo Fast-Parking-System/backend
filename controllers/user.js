@@ -71,7 +71,7 @@ async function login(req, res, next) {
             data: {
                 token,
                 is_admin: users[0].is_admin,
-                user_id: users[0].is_admin
+                user_id: users[0].id
             }
         });
     } catch (err) {
