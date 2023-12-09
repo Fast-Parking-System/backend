@@ -35,16 +35,16 @@ async function analytics(req, res, next) {
             FROM transactions
             WHERE user_id = ?
             GROUP BY DATE_FORMAT(timestamp, '%Y-%m-%d')
-            ORDER BY date DESC
+            ORDER BY date DESC;
         `, [userId]);
 
         // Get weekly transactions
         const [weeklyResults] = await db.query(`
-            SELECT DATE_FORMAT(MIN(timestamp), '%Y-%m-%d') as start_date, DATE_FORMAT(MAX(timestamp), '%Y-%m-%d') as end_date, CAST(SUM(amount) AS SIGNED) as amount
+            SELECT DATE_FORMAT(MIN(timestamp - INTERVAL (DAYOFWEEK(timestamp) - 1) DAY), '%Y-%m-%d') as start_date, DATE_FORMAT(MAX(timestamp + INTERVAL (7 - DAYOFWEEK(timestamp)) DAY), '%Y-%m-%d') as end_date, CAST(SUM(amount) AS SIGNED) as amount
             FROM transactions
             WHERE user_id = ?
-            GROUP BY WEEK(timestamp)
-            ORDER BY start_date DESC
+            GROUP BY YEARWEEK(timestamp, 3)
+            ORDER BY start_date DESC;
         `, [userId]);
 
         // Get monthly transactions
@@ -53,7 +53,7 @@ async function analytics(req, res, next) {
             FROM transactions
             WHERE user_id = ?
             GROUP BY DATE_FORMAT(timestamp, '%M %Y')
-            ORDER BY month DESC
+            ORDER BY month DESC;
         `, [userId]);
 
         // Get yearly transactions
@@ -62,7 +62,7 @@ async function analytics(req, res, next) {
             FROM transactions
             WHERE user_id = ?
             GROUP BY YEAR(timestamp)
-            ORDER BY year DESC
+            ORDER BY year DESC;
         `, [userId]);
 
         const analyticsResult = {
