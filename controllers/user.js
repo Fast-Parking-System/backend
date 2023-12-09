@@ -70,8 +70,8 @@ async function login(req, res, next) {
             error: null,
             data: {
                 token,
-                is_admin: users[0].is_admin,
-                user_id: users[0].id
+                is_admin: Boolean(users[0].is_admin),
+                user_id: Number(users[0].id)
             }
         });
     } catch (err) {
