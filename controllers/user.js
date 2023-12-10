@@ -113,7 +113,7 @@ async function getAttendants(req, res, next) {
         }
 
         const domain = `${req.protocol}://${req.get('host')}`;
-        const qrCode = await generateQrCode(`${domain}/api/attendants/${id}/pay`);
+        const qrCode = await generateQrCode(`${domain}/api/attendants/${req.user.id}/pay`);
         results.map(r => {
             let id = r.id;
             r.qr_code = qrCode;
