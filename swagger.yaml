@@ -148,6 +148,45 @@ paths:
                           $ref: "#/components/schemas/GetLocationResponse"
       security:
         - bearerAuth: []
+  /attendants/{user_id}/analytics:
+    get:
+      summary: Get analytics data for a specific attendant
+      tags:
+        - Transactions
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of the attendant for analytics.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                status: true
+                message: OK
+                error: null
+                data:
+                  daily:
+                    - date: '2023-12-01'
+                      amount: 500
+                    - date: '2023-11-30'
+                      amount: 300
+                  weekly:
+                    - start_date: '2023-11-27'
+                      end_date: '2023-12-03'
+                      amount: 1200
+                  monthly:
+                    - month: 'December 2023'
+                      amount: 1800
+                    - month: 'November 2023'
+                      amount: 900
+                  yearly:
+                    - year: 2023
+                      amount: 2700
 components:
   securitySchemes:
     bearerAuth:
@@ -207,7 +246,10 @@ components:
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwNCIsImZ1bGxfbmFtZSI6ImhhbGltYWgiLCJtb2JpbGUiOiIwODIxMDgyMTA4MjEiLCJwYXNzd29yZCI6ImhhbGltYWgxMjMiLCJsb2NhdGlvbl9pZCI6MSwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMTQxNTU5OH0.EQrlP3ULsmHz-n_v3zgYFyADah2DOrCaNxqihGctgdE
         is_admin:
           type: boolean
-          example: 0
+          example: false
+        user_id:
+          type: integer
+          example: 4
     AuthWhoAmIResponse:
       type: object
       properties:

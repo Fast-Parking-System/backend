@@ -22,6 +22,6 @@ router.get('/locations/:id', validate, locationController.detail);
 const transactionController = require('../controllers/transaction.js');
 router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
 router.post('/attendants/:user_id/pay', transactionController.createTransaction);
-router.get('/attendants/:user_id/analytics', validate, transactionController.analytics);
+router.get('/attendants/:user_id/analytics', validate, transactionController.analytics); // ok
 
 module.exports = router;
