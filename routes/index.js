@@ -14,8 +14,8 @@ router.get('/attendants', validate, userController.getAttendants); // ok
 
 // location
 const locationController = require('../controllers/location.js');
-router.post('/locations', validate, isAdmin, locationController.create);
-router.get('/locations', validate, locationController.list);
+router.post('/locations', validate, isAdmin, locationController.create); // ok
+router.get('/locations', validate, locationController.list); // ok
 router.get('/locations/:id', validate, locationController.detail);
 
 // transaksi

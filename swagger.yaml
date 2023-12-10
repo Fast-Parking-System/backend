@@ -14,6 +14,8 @@ paths:
   /register:
     post:
       summary: Register
+      tags:
+        - Auth
       requestBody:
         content:
           application/json:
@@ -34,6 +36,8 @@ paths:
   /login:
     post:
       summary: Login
+      tags:
+        - Auth
       requestBody:
         content:
           application/json:
@@ -54,6 +58,8 @@ paths:
   /whoami:
     get:
       summary: Get Profile
+      tags:
+        - Auth
       responses:
         "200":
           description: A successful response
@@ -71,11 +77,17 @@ paths:
   /attendants:
     get:
       summary: Get Attendants
+      tags:
+        - Attendants
       parameters:
         - in: query
           name: search
           schema:
             type: string
+        - in: query
+          name: location_id
+          schema:
+            type: number
       responses:
         "200":
           description: A successful response
@@ -95,6 +107,8 @@ paths:
   /locations:
     post:
       summary: Add Location
+      tags:
+        - Locations
       requestBody:
         content:
           application/json:
@@ -116,6 +130,8 @@ paths:
         - bearerAuth: []
     get:
       summary: Get Locations
+      tags:
+        - Locations
       responses:
         "200":
           description: A successful response
