@@ -95,27 +95,30 @@ async function whoami(req, res) {
 
 async function getAttendants(req, res, next) {
     try {
-        let { search } = req.query;
+        let search = req.query.search;
+        let location_id = req.query.location_id;
 
-        let results;
+        let query = `
+            SELECT users.id, users.full_name, locations.name AS location
+            FROM users
+            LEFT JOIN locations ON locations.id = users.location_id
+            WHERE NOT users.is_admin`;
+        let conditions = [];
+
         if (search) {
-            [results] = await db.query(`
-            SELECT users.id, users.full_name, locations.name AS location
-            FROM users
-            LEFT JOIN locations ON locations.id = users.location_id
-            WHERE NOT users.is_admin AND users.full_name LIKE ?`, [`%${search}%`]);
-        } else {
-            [results] = await db.query(`
-            SELECT users.id, users.full_name, locations.name AS location
-            FROM users
-            LEFT JOIN locations ON locations.id = users.location_id
-            WHERE NOT users.is_admin`);
+            query += ' AND users.full_name LIKE ?';
+            conditions.push(`%${search}%`);
         }
+        if (location_id) {
+            query += ' AND locations.id = ?';
+            conditions.push(location_id);
+        }
+
+        [results] = await db.query(query, conditions);
 
         const domain = `${req.protocol}://${req.get('host')}`;
         const qrCode = await generateQrCode(`${domain}/api/attendants/${req.user.id}/pay`);
         results.map(r => {
-            let id = r.id;
             r.qr_code = qrCode;
             r.id = r.id.toString().padStart(6, '0');
             return r;

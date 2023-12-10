@@ -38,7 +38,8 @@ Content-Type: application/json
 GET http://localhost:3000/api/locations?search=meneer
 
 ### show attendants
-GET http://localhost:3000/api/attendants?search=nau
+GET http://localhost:3000/api/attendants?location_id=2&search=dw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwNCIsImZ1bGxfbmFtZSI6ImhhbGltYWgiLCJtb2JpbGUiOiIwODIxMDgyMTA4MjEiLCJwYXNzd29yZCI6ImhhbGltYWgxMjMiLCJsb2NhdGlvbl9pZCI6MSwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMDU2MTEwM30.AVeNOZGSwsTYqMk4AR3o_xCJ4IY0gk1d1OYgVEoGKO4
 
 ### show transactions
 GET http://localhost:3000/api/attendants/1/analytics
