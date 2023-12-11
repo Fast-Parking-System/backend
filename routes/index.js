@@ -5,23 +5,23 @@ const router = express.Router();
 const userController = require('../controllers/user.js');
 const validate = require('../middleware/validate.js');
 const isAdmin = require('../middleware/is_admin.js');
-router.post('/register', userController.register); // ok
-router.post('/login', userController.login); // ok
-router.get('/whoami', validate, userController.whoami); // ok
+router.post('/register', userController.register);
+router.post('/login', userController.login);
+router.get('/whoami', validate, userController.whoami);
 
 // attendant
-router.get('/attendants', validate, userController.getAttendants); // ok
+router.get('/attendants', validate, userController.getAttendants);
 
 // location
 const locationController = require('../controllers/location.js');
-router.post('/locations', validate, isAdmin, locationController.create); // ok
-router.get('/locations', validate, locationController.list); // ok
-router.get('/locations/:id', validate, locationController.detail);
+router.post('/locations', validate, isAdmin, locationController.create);
+router.get('/locations', validate, locationController.list);
+router.get('/locations/:id', validate, locationController.detail); // 
 
 // transaksi
 const transactionController = require('../controllers/transaction.js');
-router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
-router.post('/attendants/:user_id/pay', transactionController.createTransaction);
-router.get('/attendants/:user_id/analytics', validate, transactionController.analytics); // ok
+router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);//
+router.post('/attendants/:user_id/pay', transactionController.createTransaction);//
+router.get('/attendants/:user_id/analytics', validate, transactionController.analytics);
 
 module.exports = router;

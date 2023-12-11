@@ -29,19 +29,16 @@ async function list(req, res, next) {
             [locations] = await db.query('SELECT * FROM locations');
         }
 
-        let responseData = locations.map(function (e) {
-            return {
-                ...e,
-                name: capitalizeWords(e.name),
-                tags: capitalizeWords(e.tags)
-            };
+        locations.map(function (e) {
+            e.name = capitalizeWords(e.name);
+            e.tags = capitalizeWords(e.tags);
         });
 
         res.json({
             status: true,
             message: 'OK',
             error: null,
-            data: responseData
+            data: locations
         });
     } catch (err) {
         next(err);
@@ -80,5 +77,6 @@ function capitalizeWords(inputString) {
 module.exports = {
     create,
     list,
-    detail
+    detail,
+    capitalizeWords
 };

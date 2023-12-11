@@ -1,6 +1,7 @@
 const db = require('../database');
 const jwt = require('jsonwebtoken');
 const QRCode = require('qrcode');
+const { capitalizeWords } = require('./location');
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 async function register(req, res, next) {
@@ -119,8 +120,10 @@ async function getAttendants(req, res, next) {
         const domain = `${req.protocol}://${req.get('host')}`;
         const qrCode = await generateQrCode(`${domain}/api/attendants/${req.user.id}/pay`);
         results.map(r => {
-            r.qr_code = qrCode;
             r.id = r.id.toString().padStart(6, '0');
+            r.full_name = capitalizeWords(r.full_name);
+            r.location = capitalizeWords(r.location);
+            r.qr_code = qrCode;
             return r;
         });
 
