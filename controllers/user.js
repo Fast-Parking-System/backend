@@ -23,7 +23,7 @@ async function register(req, res, next) {
             });
         }
 
-        const results = await db.query('INSERT INTO users (full_name, mobile, location_id, gender, password, is_admin) VALUES (?,?,?,?,?,?)', [fullName, mobile, locationId, gender, password, isAdmin]);
+        const results = await db.query('INSERT INTO users (full_name, mobile, location_id, gender, password, is_admin) VALUES (?,?,?,?,?,?)', [fullName.toLowerCase(), mobile, locationId, gender.toLowerCase(), password, isAdmin]);
 
         const userId = results[0].insertId.toString().padStart(6, '0');
 
@@ -63,6 +63,8 @@ async function login(req, res, next) {
         }
 
         users[0].id = userId;
+        users[0].full_name = capitalizeWords(users[0].full_name);
+        users[0].gender = capitalizeWords(users[0].gender);
         const token = jwt.sign(users[0], JWT_SECRET_KEY);
 
         res.json({
@@ -90,7 +92,11 @@ async function whoami(req, res) {
         status: true,
         message: 'OK',
         error: null,
-        data: { ...req.user, qr_code: qrCode, location: locations[0].name }
+        data: {
+            ...req.user,
+            qr_code: qrCode,
+            location: capitalizeWords(locations[0].name)
+        }
     });
 }
 

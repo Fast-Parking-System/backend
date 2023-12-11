@@ -5,7 +5,7 @@ async function create(req, res, next) {
         const name = req.body.name;
         const tags = req.body.tags;
 
-        const result = await db.query('INSERT INTO locations (name, tags) VALUES (?, ?)', [name, tags.join(', ')]);
+        const result = await db.query('INSERT INTO locations (name, tags) VALUES (?, ?)', [name.toLowerCase(), tags.join(', ').toLowerCase()]);
 
         res.json({
             status: true,
