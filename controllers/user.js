@@ -177,11 +177,11 @@ async function getAttendantDetail(req, res, next) {
         error: null,
         data: {
             ...users[0],
-            id : users[0].id.toString().padStart(6, '0'),
+            id: users[0].id.toString().padStart(6, '0'),
             full_name: capitalizeWords(users[0].full_name),
             gender: capitalizeWords(users[0].gender),
             location: capitalizeWords(locations[0].name),
-            is_admin: Boolean(users[0].is_admin),
+            is_admin: users[0].is_admin,
             qr_code: qrCode,
         }
     });
