@@ -153,9 +153,40 @@ async function generateQrCode(data) {
     return url.split(',')[1];
 }
 
+async function getAttendantDetail(req, res, next) {
+    let userId = req.params.user_id;
+
+    const [users] = await db.query('SELECT * FROM users WHERE id=?', [userId]);
+    if (users.length == 0) {
+        return res.status(400).json({
+            status: false,
+            message: 'Bad Request',
+            error: 'User not found',
+            data: null
+        });
+    }
+
+    const domain = `${req.protocol}://${req.get('host')}`;
+    const qrCode = await generateQrCode(`${domain}/api/attendants/${userId}/pay`);
+
+    const [locations] = await db.query('SELECT * FROM locations WHERE id=?', [users[0].location_id]);
+
+    res.json({
+        status: true,
+        message: 'OK',
+        error: null,
+        data: {
+            ...users[0],
+            qr_code: qrCode,
+            location: capitalizeWords(locations[0].name)
+        }
+    });
+}
+
 module.exports = {
     register,
     login,
     whoami,
-    getAttendants
+    getAttendants,
+    getAttendantDetail
 };

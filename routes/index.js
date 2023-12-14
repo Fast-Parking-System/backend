@@ -11,6 +11,7 @@ router.get('/whoami', validate, userController.whoami);
 
 // attendant
 router.get('/attendants', validate, userController.getAttendants);
+router.get('/attendants/:user_id', userController.getAttendantDetail);//
 
 // location
 const locationController = require('../controllers/location.js');
