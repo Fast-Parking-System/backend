@@ -24,6 +24,17 @@ Content-Type: application/json
 GET http://localhost:3000/api/whoami
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwMiIsImZ1bGxfbmFtZSI6Ik5hdXJhIFp1bCIsIm1vYmlsZSI6IjYyNDk1NDUxNTQ0OCIsInBhc3N3b3JkIjoicGFzc3dvcmQxMjMiLCJsb2NhdGlvbl9pZCI6MiwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMjI3MjMyMH0.PEYUAQ2w4SzFPG3d24mNJdG5s6TX8ugX-aEKAcf0vn8
 
+### Change Password
+POST http://localhost:3000/api/change-password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwMiIsImZ1bGxfbmFtZSI6Ik5hdXJhIFp1bCIsIm1vYmlsZSI6IjYyNDk1NDUxNTQ0OCIsInBhc3N3b3JkIjoicGFzc3dvcmQxMjMiLCJsb2NhdGlvbl9pZCI6MiwiZ2VuZGVyIjoiUGVyZW1wdWFuIiwiaXNfYWRtaW4iOjAsImlhdCI6MTcwMjI3MjMyMH0.PEYUAQ2w4SzFPG3d24mNJdG5s6TX8ugX-aEKAcf0vn8
+Content-Type: application/json
+
+{
+    "old_password":"password123",
+    "new_password":"login123",
+    "confirm_new_password":"login123"
+}
+
 
 ### create locations
 POST http://localhost:3000/api/locations

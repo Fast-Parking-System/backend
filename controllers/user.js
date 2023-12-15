@@ -187,10 +187,48 @@ async function getAttendantDetail(req, res, next) {
     });
 }
 
+async function changePassword(req, res, next) {
+    try {
+        const old_password = req.body.old_password;
+        const new_password = req.body.new_password;
+        const confirm_new_password = req.body.confirm_new_password;
+
+        const [users] = await db.query('SELECT * FROM users WHERE id=?', [parseInt(req.user.id, 10)]);
+        if (users[0].password != old_password) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'Wrong Password',
+                data: null
+            });
+        }
+
+        if (new_password != confirm_new_password) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'make sure the new and confrim password is match',
+                data: null
+            });
+        }
+
+        const result = await db.query('UPDATE users SET password = ? WHERE id = ?', [new_password.toLowerCase(), req.user.id]);
+        res.json({
+            status: false,
+            message: 'OK',
+            error: null,
+            data: { success: affectedRows == 1 }
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     register,
     login,
     whoami,
     getAttendants,
-    getAttendantDetail
+    getAttendantDetail,
+    changePassword
 };

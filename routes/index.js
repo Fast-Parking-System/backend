@@ -8,6 +8,7 @@ const isAdmin = require('../middleware/is_admin.js');
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/whoami', validate, userController.whoami);
+router.post('/change-password', validate, userController.changePassword);
 
 // attendant
 router.get('/attendants', validate, userController.getAttendants);

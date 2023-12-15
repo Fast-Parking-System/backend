@@ -3,7 +3,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 function validate(req, res, next) {
     console.log("req.header")
-    console.log(req.header.authorization)
+    console.log(req.headers.authorization)
     if (!req.headers.authorization) {
         return res.status(401).json({
             status: false,
