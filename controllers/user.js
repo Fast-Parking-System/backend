@@ -212,12 +212,13 @@ async function changePassword(req, res, next) {
             });
         }
 
-        const result = await db.query('UPDATE users SET password = ? WHERE id = ?', [new_password.toLowerCase(), req.user.id]);
+        const [result] = await db.query('UPDATE users SET password = ? WHERE id = ?', [new_password.toLowerCase(), req.user.id]);
+        console.log(result);
         res.json({
-            status: false,
+            status: true,
             message: 'OK',
             error: null,
-            data: { success: affectedRows == 1 }
+            data: { is_updated: result.affectedRows == 1 }
         });
     } catch (err) {
         next(err);

@@ -30,7 +30,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwMiIsI
 Content-Type: application/json
 
 {
-    "old_password":"password123",
+    "old_password":"login1234",
     "new_password":"login123",
     "confirm_new_password":"login123"
 }
