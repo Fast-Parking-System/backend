@@ -12,18 +12,18 @@ router.post('/change-password', validate, userController.changePassword);
 
 // attendant
 router.get('/attendants', validate, userController.getAttendants);
-router.get('/attendants/:user_id', userController.getAttendantDetail);//
+router.get('/attendants/:user_id', validate, userController.getAttendantDetail);
 
 // location
 const locationController = require('../controllers/location.js');
 router.post('/locations', validate, isAdmin, locationController.create);
 router.get('/locations', validate, locationController.list);
-router.get('/locations/:id', validate, locationController.detail); // 
+router.get('/locations/:id', validate, locationController.detail);
 
 // transaksi
 const transactionController = require('../controllers/transaction.js');
-router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);//
-router.post('/attendants/:user_id/pay', transactionController.createTransaction);//
+router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
+router.post('/attendants/:user_id/pay', transactionController.createTransaction);
 router.get('/attendants/:user_id/analytics', validate, transactionController.analytics);
 
 module.exports = router;
