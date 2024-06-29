@@ -10,17 +10,17 @@ router.post('/login', userController.login);
 router.get('/whoami', validate, userController.whoami);
 router.post('/change-password', validate, userController.changePassword);
 
-// attendant
+// // attendant
 router.get('/attendants', validate, userController.getAttendants);
 router.get('/attendants/:user_id', validate, userController.getAttendantDetail);
 
-// location
+// // location
 const locationController = require('../controllers/location.js');
 router.post('/locations', validate, isAdmin, locationController.create);
 router.get('/locations', validate, locationController.list);
 router.get('/locations/:id', validate, locationController.detail);
 
-// transaksi
+// // transaksi
 const transactionController = require('../controllers/transaction.js');
 router.get('/attendants/:user_id/pay', transactionController.renderCheckoutPage);
 router.post('/attendants/:user_id/pay', transactionController.createTransaction);

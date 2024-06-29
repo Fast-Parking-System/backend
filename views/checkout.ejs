@@ -53,6 +53,23 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .amount-wrapper {
+            display: flex;
+            row-gap: 1rem;
+            flex-direction: column;
+        }
+        .amount-wrapper div {
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+ 
+        :checked + div { 
+            background-color: #dbdbdb;
+        }
     </style>
 </head>
 
@@ -70,8 +87,17 @@
         <input type="text" id="location" name="location" value="<%= location %>" readonly>
 
         <!-- Nominal -->
-        <label for="amount">Amount:</label>
-        <input type="number" id="amount" name="amount" value="<%= amount %>" readonly>
+        <label>Amount:</label>
+        <div class="amount-wrapper">
+            <label for="amount-motor">
+                <input style="display: none;"  type="radio" id="amount-motor" name="amount" value="<%= amount['motor'] %>">
+                <div>Motor <%= amount['motor'] %></div>
+            </label>
+            <label for="amount-mobil">
+                <input style="display: none;"  type="radio" id="amount-mobil" name="amount" value="<%= amount['mobil'] %>">
+                <div>Mobil <%= amount['mobil'] %></div>
+            </label>
+        </div>
 
         <!-- Submit -->
         <div>
